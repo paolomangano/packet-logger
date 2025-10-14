@@ -1,0 +1,16 @@
+# Build artifacts
+obj/
+packet-tracer
+
+# Debug files
+*.dSYM/
+*.o
+
+# IDE files
+.vscode/settings.json
+.DS_Store
+
+# Temporary files
+*~
+*.swp
+*.swo
