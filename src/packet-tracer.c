@@ -145,7 +145,7 @@ void packet_handler(u_char* user_data __attribute__((unused)), const struct pcap
 
 void print_usage(const char* program_name) {
     printf("Usage: %s <IPv4_address> <network_interface>\n", program_name);
-    printf("  IPv4_address     - Target IP address to monitor (e.g., 192.168.1.100)\n");
+    printf("  IPv4_address      - Target IP address to monitor (e.g., 192.168.1.100)\n");
     printf("  network_interface - Network interface to capture from (e.g., eth0, wlan0)\n");
     printf("\nExample: %s 192.168.1.100 eth0\n", program_name);
 }
