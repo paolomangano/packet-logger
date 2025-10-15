@@ -57,8 +57,13 @@ void determine_traffic_direction(const char* src_ip, const char* dst_ip, const c
 const char* get_protocol_name(uint8_t protocol) {
     switch (protocol) {
         case 1: return "ICMP";
+        case 2: return "IGMP";
         case 6: return "TCP";
         case 17: return "UDP";
+        case 41: return "ENCAP";
+        case 43: return "IPv6-Route";
+        case 89: return "OSPF";
+        case 132: return "SCTP";
         default: return "OTHER";
     }
 }
