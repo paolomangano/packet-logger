@@ -1,4 +1,4 @@
-# Makefile for packet-tracer
+# Makefile for packet-logger
 
 # Compiler and flags
 CC = gcc
@@ -10,11 +10,11 @@ SRCDIR = src
 OBJDIR = obj
 
 # Target executable
-TARGET = packet-tracer
+TARGET = packet-logger
 
 # Source files
-SOURCES = $(SRCDIR)/packet-tracer.c
-OBJECTS = $(OBJDIR)/packet-tracer.o
+SOURCES = $(SRCDIR)/packet-logger.c
+OBJECTS = $(OBJDIR)/packet-logger.o
 
 # Default target
 all: $(TARGET)
@@ -50,10 +50,10 @@ test-build: $(TARGET)
 # Help target
 help:
 	@echo "Available targets:"
-	@echo "  all        - Build the packet-tracer executable (default)"
+	@echo "  all        - Build the packet-logger executable (default)"
 	@echo "  clean      - Remove build artifacts"
-	@echo "  install    - Install packet-tracer to /usr/local/bin/"
-	@echo "  uninstall  - Remove packet-tracer from /usr/local/bin/"
+	@echo "  install    - Install packet-logger to /usr/local/bin/"
+	@echo "  uninstall  - Remove packet-logger from /usr/local/bin/"
 	@echo "  test-build - Test compilation without running"
 	@echo "  help       - Show this help message"
 
