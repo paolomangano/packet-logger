@@ -1,6 +1,6 @@
 # Build artifacts
 obj/
-packet-tracer
+packet-logger
 
 # Debug files
 *.dSYM/
