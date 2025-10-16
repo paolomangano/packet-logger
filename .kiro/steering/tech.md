@@ -1,52 +1,64 @@
-# Technology Stack
+---
+inclusion: always
+---
 
-## Development Environment
-- **Target Platform**: Linux systems
-- **Language**: To be determined (likely C/C++ for low-level packet capture)
-- **Protocol Support**: IPv4 only
+# Technology Stack & Development Guidelines
 
-## Core Technologies
-- **Packet Capture**: Raw sockets or libpcap library
-- **Network Interfaces**: Linux network interface APIs
-- **Signal Handling**: POSIX signals (SIGINT for graceful shutdown)
+## Core Technology Decisions
+- **Language**: C (confirmed - use C99 standard)
+- **Target Platform**: Linux systems only
+- **Protocol Support**: IPv4 only (no IPv6 implementation needed)
+- **Packet Capture**: Use libpcap library (preferred over raw sockets)
+- **Build System**: Makefile-based compilation
 
-## System Requirements
-- Linux operating system
-- Root/sudo privileges for packet capture
-- Network interface access
-- Standard C library support
+## Code Style & Standards
+- Follow C99 standard conventions
+- Use snake_case for function and variable names
+- Include proper error handling for all system calls
+- Add descriptive comments for complex packet parsing logic
+- Implement graceful shutdown with SIGINT handler
+- Always validate user input (IP addresses, interface names)
 
-## Common Commands
+## Architecture Patterns
+- Single executable design (`packet-tracer`)
+- Modular function organization:
+  - `parse_arguments()` - Command-line validation
+  - `validate_interface()` - Network interface checks
+  - `setup_capture()` - libpcap initialization
+  - `process_packet()` - Packet analysis callback
+  - `cleanup_resources()` - Memory and handle cleanup
+  - `signal_handler()` - Graceful shutdown
 
-### Development
+## Required Dependencies
+- libpcap-dev (Ubuntu/Debian) or libpcap-devel (RHEL/CentOS)
+- Standard C library with POSIX signal support
+
+## Build Commands
 ```bash
-# Compile (example for C)
-gcc -o packet-tracer src/packet-tracer.c -lpcap
+# Standard build
+make
 
-# Build with debugging symbols
-gcc -g -o packet-tracer src/packet-tracer.c -lpcap
+# Debug build
+make debug
+
+# Clean build artifacts
+make clean
 ```
 
-### Testing
-```bash
-# Run with sample parameters
-sudo ./packet-tracer 192.168.1.100 eth0
+## Testing Requirements
+- Test with valid IPv4 addresses and network interfaces
+- Test error handling for invalid inputs
+- Verify graceful shutdown with Ctrl+C
+- Test on different network interfaces (eth0, wlan0, etc.)
 
-# Test with invalid parameters
-./packet-tracer invalid-ip eth0
-./packet-tracer 192.168.1.100 invalid-interface
-```
+## Performance Guidelines
+- Use efficient packet filtering with BPF (Berkeley Packet Filter)
+- Minimize memory allocations in packet processing loop
+- Avoid buffering - display packets in real-time
+- Handle high packet rates without dropping packets
 
-### Installation Dependencies
-```bash
-# Install libpcap development headers (Ubuntu/Debian)
-sudo apt-get install libpcap-dev
-
-# Install libpcap development headers (RHEL/CentOS)
-sudo yum install libpcap-devel
-```
-
-## Performance Considerations
-- Minimize packet processing overhead
-- Efficient memory management for continuous operation
-- Real-time packet display without buffering delays
+## Security Considerations
+- Require root privileges for packet capture
+- Validate all user inputs to prevent injection attacks
+- Use safe string handling functions (strncpy, snprintf)
+- Implement proper bounds checking for packet data access
